@@ -1,97 +1,95 @@
 <template>
-    <div class="planner-container">
-      <h1>Poker Planner</h1>
-      <div class="cards-container">
-        <div 
-          v-for="card in cards" 
-          :key="card.value" 
-          class="card" 
-          @click="selectCard(card.value)"
-          :class="{ selected: selectedCard === card.value }"
-        >
-          {{ card.label }}
-        </div>
+    <div class="landing-container">
+      <div id="navbar">
+        <navbar />
       </div>
-      <div class="selected-card" v-if="selectedCard !== null">
-        <h2>Has seleccionado:</h2>
-        <div class="card selected">{{ selectedCard }}</div>
+  
+      <div>
+        <button @click="mostrarModalSesion">Crear/Unirse a sesión</button>
+        <modal v-if="mostrarModalSesion" @close="mostrarModalSesion = false">
+          <button @click="crearSesion" :disabled="!esScrumMaster">Crear sesión</button>
+          <button @click="unirseSesion">Unirse a sesión</button>
+        </modal>
+        <button @click="activarScrumMaster" v-if="!esScrumMaster">Activar Scrum Master</button>
+        <ModalScrumMaster v-if="mostrarModalActivarScrumMaster" @close="mostrarModalActivarScrumMaster = false" @autenticado="esScrumMaster = true" />
       </div>
+
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'Planner',
-    data() {
-      return {
-        cards: [
-          { value: 1, label: '1' },
-          { value: 2, label: '2' },
-          { value: 3, label: '3' },
-          { value: 5, label: '5' },
-          { value: 8, label: '8' },
-          { value: 13, label: '13' },
-          { value: 21, label: '21' },
-          { value: 34, label: '34' },
-          { value: 55, label: '55' },
-          { value: 89, label: '89' },
-          { value: 144, label: '144' },
-          { value: '?', label: '?' }
-        ],
-        selectedCard: null
-      };
+</template>
+
+<script>
+import ModalScrumMaster from '@/components/ModalScrumMaster.vue';
+import Modal from '@/components/Modal.vue';
+import Navbar from '@/components/Navbar.vue';
+
+export default {
+  name: 'Planner',
+  components: {
+    Navbar,
+    ModalScrumMaster,
+    Modal,
+  },
+  data() {
+    return {
+      mostrarModalSesion: false,
+      mostrarModalActivarScrumMaster: false,
+      esScrumMaster: false,
+    };
+  },
+  methods: {
+    mostrarModalSesion() {
+      this.mostrarModalSesion = true;
     },
-    methods: {
-      selectCard(value) {
-        this.selectedCard = value;
-      }
-    }
-  };
-  </script>
+    crearSesion() {
+      // Llamar al servidor para crear la sesión
+      this.$axios.post('/sesiones', {
+        nombre: 'Nueva sesión',
+        descripcion: 'Descripción de la sesión',
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    },
+    unirseSesion() {
+      // Llamar al servidor para unirse a la sesión
+      this.$axios.post('/sesiones/unirse', {
+        sesionId: 1,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    },
+    activarScrumMaster() {
+      this.mostrarModalActivarScrumMaster = true;
+    },
+  },
+};
+</script>
+
+<style scoped>
+
+.landing-container {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(47, 87, 133); /* Azul */
+  color: #ffffff; /* Blanco */
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height:100%;
   
-  <style scoped>
-  .planner-container {
-    text-align: center;
-    padding: 20px;
+
   }
-  
-  .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .card {
-    width: 60px;
-    height: 90px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.1);
-  }
-  
-  .selected {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .selected-card {
-    margin-top: 20px;
-  }
-  
-  .selected-card .card {
-    font-size: 24px;
-    width: 100px;
-    height: 150px;
-  }
-  </style>
+
+
+</style>

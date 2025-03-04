@@ -47,6 +47,15 @@ app.post('/api/register', async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
+    const existingUser = await User.findOne({
+      email
+    });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: 'El correo electrónico ya está registrado'
+      });
+    } 
+
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
     res.status(201).json({ success: true, message: 'Usuario registrado exitosamente' });
@@ -79,6 +88,32 @@ app.post('/api/login', async (req, res) => {
     res.status(200).json({ success: true, token });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error al iniciar sesión', error });
+  }
+});
+
+// Ruta para autenticar al Scrum Master
+app.post('/api/scrum-master/autenticar', async (req, res) => {
+  const { usuario, contrasena } = req.body;
+
+  if (!usuario || !contrasena) {
+    return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
+  }
+
+  try {
+    const user = await User.findOne({ usuario });
+    if (!user) {
+      return res.status(400).json({ success: false, message: 'Usuario o contraseña incorrectos' });
+    }
+
+    const isMatch = await bcrypt.compare(contrasena, user.contrasena);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: 'Usuario o contraseña incorrectos' });
+    }
+
+    res.status(200).json({ success: true, message: 'Autenticación exitosa' });
+  } catch (error) {
+    console.error('Error al autenticar usuario:', error);
+    res.status(500).json({ success: false, message: 'Error al autenticar usuario', error: error.message });
   }
 });
 

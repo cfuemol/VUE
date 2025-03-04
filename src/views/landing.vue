@@ -1,7 +1,7 @@
 <template>
     <div class="landing-container">
         <div id="navbar">
-
+          <Navbar />
         </div>
         
       
@@ -33,9 +33,13 @@
   import img2 from '@/assets/portada_ahorcado2.jpg';
   import img3 from '@/assets/portada_poker_planning.jpg';
   import img4 from '@/assets/portada_ruleta.jpg'
+  import Navbar from '@/components/Navbar.vue';
 
   export default {
     name: 'Landing',
+    components: {
+      Navbar,
+    },
     data() {
       return {
         cards: [
