@@ -4,6 +4,7 @@ import Registro from '../src/views/Register.vue';
 import Planner from '../src/views/planner.vue';
 import Landing from '../src/views/landing.vue';
 import Ahorcado1 from '../src/views/ahorcado1.vue';
+import Ahorcado from '../src/views/ahorcado.vue';
 import Ahorcado2 from '../src/views/ahorcado2.vue';
 import Ruleta from '../src/views/ruleta.vue';
 
@@ -28,9 +29,9 @@ const routes = [
       component: Landing
     },
     {
-      path: '/ahorcado1',
+      path: '/ahorcado',
       name: 'Ahorcado1',
-      component: Ahorcado1
+      component: Ahorcado
     },
     {
       path: '/ahorcado2',

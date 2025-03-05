@@ -33,7 +33,7 @@
   import img2 from '@/assets/portada_ahorcado2.jpg';
   import img3 from '@/assets/portada_poker_planning.jpg';
   import img4 from '@/assets/portada_ruleta.jpg'
-  import Navbar from '@/components/Navbar.vue';
+  import Navbar from '@/components/NavBar.vue';
 
   export default {
     name: 'Landing',
@@ -44,7 +44,7 @@
       return {
         cards: [
           {
-            id: '/ahorcado1',
+            id: '/ahorcado',
             image: img1,
             title: 'Ahorcado v1',
             description: 'Debes descubrir la palabra oculta antes de que se complete el dibujo.',
