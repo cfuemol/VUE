@@ -1,17 +1,15 @@
 <template>
-  <div class="register-container">
-    <div id="logo">
+  <div class="register-container">    
       <img :src="logo" alt="logo VIEWNEXT" width="20%" class="logo" />
-    </div>
-    <div id="register-form">
-      <form @submit.prevent="register">
+        
+      <form @submit.prevent="register" id="register-form">
         <h2>Registrarse</h2>
         <input type="text" v-model="name" placeholder="Nombre" required>
         <input type="email" v-model="email" placeholder="Correo electrónico" required />
         <input type="password" v-model="password" placeholder="Contraseña" required />
         <button type="submit">Registrarse</button>
       </form>
-    </div>
+    
   </div>
 </template>
 
@@ -71,7 +69,8 @@ export default {
 
 .register-container h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5%;
+  margin-top: -10%;
 }
 
 .register-container input {
@@ -97,12 +96,15 @@ export default {
 }
 
 .register-container button:hover {
-  background-color: rgb(47, 87, 133);
+  background-color:white;
+  transform: scale(1.1);
+  color: rgb(47, 87, 133);
 }
 
 p {
   text-align: center;
 }
+
 #register-form{
   width:50%;
   margin:auto;

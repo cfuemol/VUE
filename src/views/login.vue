@@ -1,25 +1,15 @@
 // Login.vue
 <template>
   <div class="login-container">
-    <div>
       <img :src="logo" alt="logo VIEWNEXT" id="logo" width="20%" />
-    </div>
-    <div id="login-container">
-        <form @submit.prevent="login">
-            <h2>Login</h2>
-            <input type="email" v-model="email" placeholder="Correo electrónico" />
-            <input type="password" v-model="password" placeholder="Contraseña" />
-            <button type="submit">Iniciar sesión</button>
-        </form>
-    </div>
-    <div id="O">
-        <p>O</p>
-    </div>
-    <div id="registrarse">
-        <button type="button" @click="irRegistro" className="btn btn-outline-light btn-lg btn-block">
-                Registrarse
-        </button>
-    </div>
+    
+      <form @submit.prevent="login" id="registrarse">
+        <h2>Login</h2>
+        <input type="email" v-model="email" placeholder="Correo electrónico" />
+        <input type="password" v-model="password" placeholder="Contraseña" />
+        <button type="submit" class="boton">Iniciar sesión</button> 
+        <button type="submit" class="boton" @click="irRegistro">Registrarse</button>
+      </form>
     
   </div>
 </template>
@@ -82,7 +72,8 @@ export default {
 
 .login-container h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5%;
+  margin-top: -10%;
 }
 
 .login-container input {
@@ -105,10 +96,14 @@ export default {
   cursor: pointer;
   text-align: center;
   font-size:20px;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 .login-container button:hover {
-  background-color: rgb(47, 87, 133);
+  background-color: white;
+  transform: scale(1.1);
+  color: rgb(47, 87, 133);
 }
 
 #login-container{
@@ -124,10 +119,5 @@ export default {
     margin:auto;
     margin-top:50px;
 }
-#O{
-    color:#ffffff;
-    font-size:10%;
-}
-
 
 </style>
