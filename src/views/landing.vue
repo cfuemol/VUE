@@ -51,7 +51,7 @@
       return {
         cards: [
           {
-            id: '/ahorcado1',
+            id: '/ahorcado',
             image: img1,
             title: 'Ahorcado v1',
             description: 'Debes descubrir la palabra oculta antes de que se complete el dibujo.',
