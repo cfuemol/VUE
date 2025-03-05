@@ -36,9 +36,9 @@
 
     <div v-if="showModalPerder" class="modal">
         <div class="modal-content">
-            <h2>Has perdido</h2>
+            <h2>¡Has perdido!</h2>
             <p>La palabra era: {{ palabra }}</p>
-            <button @click="handleCloseModalPerder">Reiniciar</button>
+            <button @click="handleCloseModalPerder"  class="modal_boton">Reiniciar</button>
         </div>
 
     </div>
@@ -47,7 +47,7 @@
         <div class="modal-content">
             <h2>¡Has ganado!</h2>
             <p>Felicidades, has adivinado la palabra: {{ palabra }}</p>
-            <button @click="handleCloseModalGanar">Reiniciar</button>
+            <button @click="handleCloseModalGanar" class="modal_boton">Reiniciar</button>
         </div>
 
     </div>
@@ -142,14 +142,12 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
         background-color: rgb(47, 87, 133); /* Azul */
         color: #ffffff; /* Blanco */
         text-align: center;
         padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .juego {
@@ -219,7 +217,8 @@
     img{
         width: 75%;
         height: 75%;
-        filter: invert(100%)
+        filter: invert(100%);
+        margin-top: 5%;
     }
 
     .modal {
@@ -241,6 +240,11 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         width: 50%;
+    }
+
+    .modal_boton{
+        background-color: green;
+        color: white;
     }
 
 </style>
