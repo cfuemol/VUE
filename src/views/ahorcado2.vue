@@ -1,61 +1,463 @@
 <template>
-  <div>
-    <input v-model="letra" @keyup.enter="ingresarLetra" />
-    <button @click="ingresarLetra">Ingresar letra</button>
-    <p>Palabra: {{ palabra }}</p>
-    <p>Intentos restantes: {{ intentosRestantes }}</p>
-    <div v-html="dibujoAhorcado"></div>
+  <div class = ahorcado2>
+    <div id="navBar">
+      <CustomNavbar />
+    </div>
+      
+    
+    <div class="cabecera">
+      <div class="boton-nuevo-juego">
+        <div class="palabra-adivinar">
+          <h2>Adivina la palabra:</h2>
+          <p>
+            {{ palabraAdivinar.split('').map((letra) => (letrasAdivinadas.includes(letra) ? letra : '_')).join(' ') }}
+          </p>
+        </div>
+        <div class="titulo">
+          El Ahorcado
+        </div>
+      </div>
+    </div>
+
+    <div class="estado-juego">
+      <div class="div-estado">
+        <div>
+          <h2 class="selecciona-letra">
+            Selecciona una Letra:
+          </h2>
+          <div class="div-alfabeto">
+            <button
+              v-for="letra in alfabeto"
+              :key="letra"
+              :class="`alfabeto ${letrasAdivinadas.includes(letra) ? 'correcta' : ''} ${letrasIncorrectas.includes(letra) ? 'incorrecta' : ''}`"
+              @click="manejarAdivinanza(letra)"
+              :disabled="letrasAdivinadas.includes(letra) || letrasIncorrectas.includes(letra)"
+            >
+              {{ letra }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="div-muñeco">
+        <div class="div-situacion">
+          <h2>
+            Tú situación:
+          </h2>
+        </div>
+        <div class="div-dibujo">
+          <p>
+            {{ dibujarMuñeco() }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="div-botones">
+      <div class="boton-menu">
+        <button type="button" class="btn btn-success btn-rounded" @click="iniciarNuevoJuego">Iniciar Nuevo Juego</button>
+      </div>
+      <div class="boton-menu">
+        <button type="button" class="btn btn-light">
+          <a href="./login">Volver al Inicio</a>
+        </button>
+      </div>
+    </div>
+    <Modal v-model="ModalShowPerder" title="Perdiste" @on-ok="handleClosePerder">
+      <p>Has perdido, la palabra era: {{ palabraAdivinar }}</p>
+    </Modal>
+    <Modal v-model="ModalShowGanar" title="Has Ganado" @on-ok="handleCloseGanar">
+      <p>Has ganado, descubriste la palabra: {{ palabraAdivinar }}</p>
+    </Modal>
   </div>
 </template>
 
 <script>
+import CustomNavbar from '../components/NavBar.vue';
+import esqueleto1 from '@/assets/imagenes_proyecto/esqueleto_cabeza.png';
+import esqueleto2 from '@/assets/imagenes_proyecto/esqueleto_cuerpo.png';
+import esqueleto3 from '@/assets/imagenes_proyecto/esqueleto_1brazo.png';
+import esqueleto4 from '@/assets/imagenes_proyecto/esqueleto_2brazos.png';
+import esqueleto5 from '@/assets/imagenes_proyecto/esqueleto_1pierna.png';
+import esqueleto6 from '@/assets/imagenes_proyecto/esqueleto_completo.png';
+import calavera from '@/assets/imagenes_proyecto/calavera_cruz.png';
+
 export default {
+  name: 'Ahorcado2',
+  components: { CustomNavbar },
   data() {
     return {
-      palabra: "_ _ _ _ _ _",
-      letra: "",
-      intentosRestantes: 6,
-      dibujoAhorcado: "",
+      palabraAdivinar: '',
+      letrasAdivinadas: [],
+      letrasIncorrectas: [],
+      intentosIncorrectos: 0,
+      estadoJuego: 'jugando',
+      ModalShowPerder: false,
+      ModalShowGanar: false,
+      max_intentos: 6,
+      alfabeto: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+      palabras: ['REACT', 'JAVASCRIPT', 'AHORCADO', 'PROGRAMACION', 'DESARROLLO'],
+      esqueleto1,
+      esqueleto2,
+      esqueleto3,
+      esqueleto4,
+      esqueleto5,
+      esqueleto6,
+      calavera,
     };
   },
+  mounted() {
+    this.iniciarNuevoJuego();
+  },
   methods: {
-    ingresarLetra() {
-      // Comprobar si la letra es correcta
-      if (this.palabra.includes(this.letra)) {
-        // Actualizar la palabra
-        this.palabra = this.palabra.replace("_", this.letra);
-      } else {
-        // Disminuir el número de intentos restantes
-        this.intentosRestantes--;
-        // Dibujar el ahorcado
-        this.dibujarAhorcado();
-      }
-      // Limpiar el input
-      this.letra = "";
+    iniciarNuevoJuego() {
+      const palabraAleatoria = this.palabras[Math.floor(Math.random() * this.palabras.length)];
+      this.palabraAdivinar = palabraAleatoria;
+      this.letrasAdivinadas = [];
+      this.letrasIncorrectas = [];
+      this.intentosIncorrectos = 0;
+      this.estadoJuego = 'jugando';
     },
-    dibujarAhorcado() {
-      // Dibujar el ahorcado según el número de intentos restantes
-      switch (this.intentosRestantes) {
-        case 5:
-          this.dibujoAhorcado = "<div>_______</div>";
-          break;
-        case 4:
-          this.dibujoAhorcado = "<div>_______</div><div>|</div>";
-          break;
-        case 3:
-          this.dibujoAhorcado = "<div>_______</div><div>|</div><div>/</div>";
-          break;
-        case 2:
-          this.dibujoAhorcado = "<div>_______</div><div>|</div><div>/</div><div>\\</div>";
-          break;
-        case 1:
-          this.dibujoAhorcado = "<div>_______</div><div>|</div><div>/</div><div>\\</div><div>|</div>";
-          break;
-        default:
-          this.dibujoAhorcado = "<div>_______</div><div>|</div><div>/</div><div>\\</div><div>|</div><div>_____</div>";
-          break;
+    manejarAdivinanza(letra) {
+      if (this.letrasAdivinadas.includes(letra) || this.letrasIncorrectas.includes(letra) || this.estadoJuego !== 'jugando') return;
+
+      const nuevasLetrasAdivinadas = [...this.letrasAdivinadas, letra];
+      this.letrasAdivinadas = nuevasLetrasAdivinadas;
+
+      if (!this.palabraAdivinar.includes(letra)) {
+        const nuevosIntentosIncorrectos = this.intentosIncorrectos + 1;
+        this.letrasIncorrectas = [...this.letrasIncorrectas, letra];
+        this.intentosIncorrectos = nuevosIntentosIncorrectos;
+
+        if (nuevosIntentosIncorrectos >= this.max_intentos) {
+          this.estadoJuego = 'perdido';
+          this.ModalShowPerder = true;
+        }
+      } else {
+        if (this.palabraAdivinar.split('').every((letra) => nuevasLetrasAdivinadas.includes(letra))) {
+          this.estadoJuego = 'ganado';
+          this.ModalShowGanar = true;
+        }
       }
+    },
+    dibujarMuñeco() {
+      switch (this.intentosIncorrectos) {
+        case 0:
+          return null;
+        case 1:
+          return `<img src="${this.esqueleto1}" alt="La cabeza de un esqueleto." width="200" class="esqueleto">`;
+        case 2:
+          return `<img src="${this.esqueleto2}" alt="La cabeza y cuerpo de un esqueleto." width="200" class="esqueleto">`;
+        case 3:
+          return `<img src="${this.esqueleto3}" alt="La cabeza, cuerpo y un brazo de un esqueleto." width="200" class="esqueleto">`;
+        case 4:
+          return `<img src="${this.esqueleto4}" alt="La cabeza, cuerpo y dos brazos de un esqueleto." width="200" class="esqueleto">`;
+        case 5:
+          return `<img src="${this.esqueleto5}" alt="La cabeza, cuerpo, dos brazos y una pierna de un esqueleto." width="200" class="esqueleto">`;
+        case 6:
+          return `<img src="${this.esqueleto6}" alt="La cabeza, cuerpo completo de un esqueleto." width="200" class="esqueleto">`;
+        default:
+          return `<img src="${this.calavera}" alt="Calavera" width="80%" class="calavera">`;
+      }
+    },
+    handleClosePerder() {
+      this.ModalShowPerder = false;
+    },
+    handleShowPerder() {
+      this.ModalShowPerder = true;
+    },
+    handleCloseGanar() {
+      this.ModalShowGanar = false;
+    },
+    handleShowGanar() {
+      this.ModalShowGanar = true;
     },
   },
 };
 </script>
+  
+<style>
+
+.alfabeto{
+    width:15%;
+    height: 15%;
+    border:solid rgb(255, 255, 255);
+    background-color: blanchedalmond;
+    border-radius: 20%;
+    margin: 5px;
+    padding: 10px;
+    font-size: 100%;
+    font-style: italic;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: transform 0.3s ease-in-out;
+    
+}
+
+#navBar{
+    margin:3%;
+    width:95%;
+}
+    
+
+.alfabeto:hover{
+    transform: scale(1.2);
+}
+.alfabeto:active{
+    animation: rotateAnimation 0.2s ease-in-out;
+}
+@keyframes rotateAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.correcta{
+    background-color: green;
+    color:white;
+    animation: correctAnimation 0.3s ease-in-out;
+}
+.incorrecta{
+    background-color: red;
+    color:white;
+    animation: incorrectAnimation 0.3s ease-in-out;
+}
+@keyframes correctAnimation {
+    0% { background-color: green; transform: scale(1); }
+    50% { background-color: lightgreen; transform: scale(1.2); }
+    100% { background-color: green; transform: scale(1); }
+}
+
+@keyframes incorrectAnimation {
+    0% { background-color: red; transform: scale(1); }
+    50% { background-color: pink; transform: scale(1.2); }
+    100% { background-color: red; transform: scale(1); }
+}
+
+.div-alfabeto{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width:100%;
+    position: relative;
+    
+
+}
+.div-estado{
+    flex:1;
+    display:block;
+    justify-content: center;
+    margin: 10px;
+    width:30%;
+
+}
+.div-muñeco{
+    display:block;
+    justify-content: center;
+    margin: 30px;
+    width:50%;
+    height: 500px;
+   
+}
+.estado-juego {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+    padding: 10px; /* Espacio entre el contenido y el borde */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    width: 100%; /* Ancho del contenedor */
+    margin:auto;
+}
+
+.div-estado {
+    flex: 1;
+    text-align: center;
+}
+
+
+.div-incorrectas{
+    display: flex;
+    justify-content: center;
+   
+    background-color: rgb(218, 16, 16);
+    
+    border: solid brown;
+    
+}
+.div-adivinadas{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(20, 224, 13);
+    border: solid brown;
+}
+.div-situacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(25, 122, 212);
+    color: white;
+    border: solid rgb(255, 255, 255);
+    margin:10px;
+}
+.div-dibujo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image:url('../assets/imagenes_proyecto/fondo_hangman.png');
+    background-size: 30%;
+    background-repeat:no-repeat;
+    background-position: center;
+    position: relative;
+    border: solid rgb(255, 255, 255);
+    width: 90%;
+    height: 80%;
+    margin:10px;
+    border-radius: 10px;
+    margin:auto;
+}
+
+.cabecera{
+    
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px;
+    
+   
+}
+.titulo{
+    flex:1;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold ;
+    font-size:60px;
+    color: rgb(3, 223, 223);
+    margin:auto;
+    width:70%;
+    border:solid rgb(255, 255, 255);
+}
+.boton-nuevo-juego{
+    display:flex;
+    flex:1;
+    text-align: center;
+    font-size: 24px;
+    justify-content: space-between;
+}
+
+.palabra-adivinar{
+    padding:10px;
+    justify-content: center;
+    background-color: rgb(148, 208, 216);
+    border: solid rgb(255, 255, 255);
+    margin-top:2%;
+    margin-left:30px;
+    margin-right:30px;
+    border-radius: 10px;
+    font-size: 30px;
+    width: 40%;
+    height: 5%;
+}
+.selecciona-letra{
+    color:aquamarine;
+}
+.div-botones{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.esqueleto{
+    width: 30%;
+    margin-left: 10%;
+    margin-top: 10%;
+    
+}
+.calavera{
+    
+    margin-left: 30%;
+    margin-bottom: 30%;
+    transform: scale(0.6);
+}
+
+.modal_perder_header{
+    color:white;
+    background-color: rgb(224, 13, 13);
+}
+
+.modal_ganar_header{
+    color:white;
+    background-color: rgb(13, 224, 13);
+}
+
+.boton-juego{
+    display:flex;
+    justify-content: space-between;
+}
+
+.boton-menu{
+    flex:1;
+}
+
+.salir{
+    text-decoration: none;
+    color:black;
+}
+
+@media (max-width:576px){
+    .titulo{
+        font-size: 100%;
+    }
+    .palabra-adivinar{
+        font-size:80%;
+    }
+    .alfabeto{
+        width:20%;
+        font-size:60%;
+    }
+    .div-dibujo{
+        background-size: 100%;
+    }
+    .esqueleto{
+        transform: scale(1.2);
+        margin-left: 40%;
+        margin-top: 30%;
+    }
+    .calavera{
+        width:90%;
+        margin-left:-10%;
+    }
+}
+@media (max-width:768px){
+    .titulo{
+        font-size:150%;
+    }
+    .esqueleto{
+        width:50%;
+        margin-top:20%;
+    }
+    .calavera{
+        width:70%;
+        margin-left:20%;
+        margin-top:20%
+    }
+}
+
+    .ahorcado2 {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  top:0%;
+  left:0%;
+}
+
+
+</style>
