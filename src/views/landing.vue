@@ -160,6 +160,7 @@
 
   #div-imagen{
     height: 50%;
+    margin:auto;
    
   }
   #div-titulo{
