@@ -20,7 +20,7 @@
 <script>
 import ModalScrumMaster from '@/components/ModalScrumMaster.vue';
 import Modal from '@/components/Modal.vue';
-import Navbar from '@/components/Navbar.vue';
+import Navbar from '@/components/NavBar.vue';
 
 export default {
   name: 'Planner',
