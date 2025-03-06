@@ -11,11 +11,13 @@
 <script>
 import Planner from '@/views/planner.vue';
 import Landing from '@/views/landing.vue';
+import ahorcado2 from '@/views/ahorcado2.vue';
 export default {
   name: 'App',
   components:{
     Planner,
     Landing,
+    ahorcado2,
   }
   
 }
