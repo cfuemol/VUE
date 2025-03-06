@@ -8,6 +8,7 @@ import Ahorcado from '../src/views/ahorcado.vue';
 import Ahorcado2 from '../src/views/ahorcado2.vue';
 import Ruleta from '../src/views/ruleta.vue';
 
+
 const routes = [
     { path: '/',
      name: 'Login',
