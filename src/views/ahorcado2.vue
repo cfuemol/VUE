@@ -65,7 +65,7 @@
     <div v-if="showModalPerder" class="modal-V1">
         <div class="modal-content-V1">
             <h2>¡Has perdido!</h2>
-            <p>La palabra era: {{ palabraAleatoria }}</p>
+            <p>La palabra era: {{ palabraAdivinar }}</p>
             <button @click="handleCloseModalPerder"  class="modal_boton-V1">Reiniciar</button>
         </div>
 
@@ -74,7 +74,7 @@
     <div v-if="showModalGanar" class="modal-V1">
         <div class="modal-content-V1">
             <h2>¡Has ganado!</h2>
-            <p>Felicidades, has adivinado la palabra: {{ palabraAleatoria }}</p>
+            <p>Felicidades, has adivinado la palabra: {{ palabraAdivinar }}</p>
             <button @click="handleCloseModalGanar" class="modal_boton-V1">Reiniciar</button>
         </div>
 
