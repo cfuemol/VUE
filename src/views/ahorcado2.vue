@@ -55,11 +55,7 @@
       <div class="boton-menu">
         <button type="button" class="btn btn-success btn-rounded" @click="iniciarNuevoJuego">Iniciar Nuevo Juego</button>
       </div>
-      <div class="boton-menu">
-        <button type="button" class="btn btn-light">
-          <a href="./login">Volver al Inicio</a>
-        </button>
-      </div>
+
     </div>
 
     <div v-if="showModalPerder" class="modal-V1">
@@ -483,11 +479,10 @@ export default {
     }
 }
 
-    .ahorcado2 {
+  .ahorcado2 {
   position: absolute;
   min-width: 100%;
   min-height: 100%;
-  
   padding: 0;
   overflow: hidden;
   display: flex;
