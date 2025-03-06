@@ -62,25 +62,26 @@
       </div>
     </div>
 
-    <div v-if="showModalPerder" class="modal">
-        <div class="modal-content">
+    <div v-if="showModalPerder" class="modal-V1">
+        <div class="modal-content-V1">
             <h2>¡Has perdido!</h2>
-            <p>La palabra era: {{ palabra }}</p>
-            <button @click="handleCloseModalPerder"  class="modal_boton">Reiniciar</button>
+            <p>La palabra era: {{ palabraAleatoria }}</p>
+            <button @click="handleCloseModalPerder"  class="modal_boton-V1">Reiniciar</button>
         </div>
 
     </div>
 
-    <div v-if="showModalGanar" class="modal">
-        <div class="modal-content">
+    <div v-if="showModalGanar" class="modal-V1">
+        <div class="modal-content-V1">
             <h2>¡Has ganado!</h2>
-            <p>Felicidades, has adivinado la palabra: {{ palabra }}</p>
-            <button @click="handleCloseModalGanar" class="modal_boton">Reiniciar</button>
+            <p>Felicidades, has adivinado la palabra: {{ palabraAleatoria }}</p>
+            <button @click="handleCloseModalGanar" class="modal_boton-V1">Reiniciar</button>
         </div>
-  </div>
+
+    </div>
     
       
-    </div>
+  </div>
     
 </template>
 
@@ -105,7 +106,7 @@ export default {
       letrasIncorrectas: [],
       intentosIncorrectos: 0,
       estadoJuego: 'jugando',
-      mostrarModalPerdiste:true,
+
       
       max_intentos: 6,
       alfabeto: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
@@ -153,9 +154,11 @@ export default {
       } else {
         if (this.palabraAdivinar.split('').every((letra) => nuevasLetrasAdivinadas.includes(letra))) {
           this.estadoJuego = 'ganado';
-          this.ModalShowGanar = true;
+          this.showModalGanar = true;
         }
+        
       }
+
     },
     dibujarMuñeco() {
       const intentosIncorrectos = this.intentosIncorrectos;
@@ -176,17 +179,17 @@ export default {
         return `<img src="${imagenes[intentosIncorrectos-1]}" alt="Esqueleto" width="200" class="esqueleto">`;
       }
     },
-  handleCloseModalPerder() {
+    handleCloseModalPerder() {
             this.showModalPerder = false;
-            this.seleccionarPalabraAleatoria();
+            this.iniciarNuevoJuego();
         },
 
-  handleCloseModalGanar() {
+        handleCloseModalGanar() {
             this.showModalGanar = false;
-            this.seleccionarPalabraAleatoria();
-    
+            this.iniciarNuevoJuego();
+        },
   },
-},
+
 };
 </script>
   
@@ -400,14 +403,31 @@ export default {
     transform: scale(0.6);
 }
 
-.modal_perder_header{
-    color:white;
-    background-color: rgb(224, 13, 13);
+.modal-V1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+.modal-content-V1 {
+    background-color: gray;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    text-align: center;
 }
 
-.modal_ganar_header{
-    color:white;
-    background-color: rgb(13, 224, 13);
+.modal_boton-V1{
+    background-color: green;
+    color: white;
 }
 
 .boton-juego{
