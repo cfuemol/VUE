@@ -1,26 +1,26 @@
 <template>
-    <div class="container">
+    <div class="container-V1">
 
         <div id="navbar">
         <Navbar />
         </div>
 
-    <div class="juego">
+    <div class="juego-V1">
         
-        <div class="izquierda">
+        <div class="izquierda-V1">
 
-            <div class="info">
-                <p class="info-p">Intentos: {{ intentos }} / {{ maxIntentos }}</p>
+            <div class="info-V1">
+                <p class="info-p-V1">Intentos: {{ intentos }} / {{ maxIntentos }}</p>
                 <p>Palabra: {{ palabra.split('').map((letra) => (letrasAdivinadas.includes(letra) ? letra : '_')).join(' ') }}</p>
             </div>
 
-            <div class="alfabeto">
+            <div class="alfabeto-V1">
                 <button
                     v-for="letra in alfabeto"
                     :key="letra"
                     @click="manejarIntento(letra)"
                     :disabled="letrasAdivinadas.includes(letra) || intentos >= maxIntentos || letrasIncorrectas.includes(letra)"
-                    :class="`boton-letra ${botonColores[letra] || ''}`"
+                    :class="`boton-letra-V1 ${botonColores[letra] || ''}`"
                 >
                 {{ letra }}
                 </button>
@@ -28,26 +28,26 @@
 
         </div>
 
-        <div class="dibujo_ahorcado">
+        <div class="dibujo_ahorcado-V1">
             <img :src="imagenes[intentos]" alt="Ahorcado" />
         </div>
 
     </div>
 
-    <div v-if="showModalPerder" class="modal">
-        <div class="modal-content">
+    <div v-if="showModalPerder" class="modal-V1">
+        <div class="modal-content-V1">
             <h2>¡Has perdido!</h2>
             <p>La palabra era: {{ palabra }}</p>
-            <button @click="handleCloseModalPerder"  class="modal_boton">Reiniciar</button>
+            <button @click="handleCloseModalPerder"  class="modal_boton-V1">Reiniciar</button>
         </div>
 
     </div>
 
-    <div v-if="showModalGanar" class="modal">
-        <div class="modal-content">
+    <div v-if="showModalGanar" class="modal-V1">
+        <div class="modal-content-V1">
             <h2>¡Has ganado!</h2>
             <p>Felicidades, has adivinado la palabra: {{ palabra }}</p>
-            <button @click="handleCloseModalGanar" class="modal_boton">Reiniciar</button>
+            <button @click="handleCloseModalGanar" class="modal_boton-V1">Reiniciar</button>
         </div>
 
     </div>
@@ -138,7 +138,7 @@
 
 <style scoped>
 
-    .container {
+    .container-V1 {
         position: absolute;
         top: 0;
         left: 0;
@@ -150,7 +150,7 @@
         padding: 20px;
     }
 
-    .juego {
+    .juego-V1 {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -159,7 +159,7 @@
         margin-top: 5%;
     }
 
-    .izquierda {
+    .izquierda-V1 {
         display: block;
         justify-content: center;
         align-items: center;
@@ -168,7 +168,7 @@
         z-index: 0;
     }
 
-    .info {
+    .info-V1 {
         display: block;
         border: 2px solid white;
         border-radius: 10px;
@@ -176,18 +176,18 @@
         margin-bottom: 2%;
     }
 
-    .info-p {
+    .info-p-V1 {
         margin-top: 2.5%;
     }
 
-    .alfabeto {
+    .alfabeto-V1 {
         display: block;
         border: 2px solid white;
         border-radius: 10px;
         width: 100%;
     }
 
-    .boton-letra {
+    .boton-letra-V1 {
         background-color: white;
         color: black;
         padding: 10px 20px;
@@ -197,17 +197,17 @@
         cursor: pointer;
     }
 
-    .boton-letra.green {
+    .boton-letra-V1.green {
         background-color: green;
         color: white;
     }
 
-    .boton-letra.red {
+    .boton-letra-V1.red {
         background-color: red;
         color: white;
     }
 
-    .dibujo_ahorcado {
+    .dibujo_ahorcado-V1 {
         width: 50%;
         display: flex;
         justify-content: center;
@@ -221,7 +221,7 @@
         margin-top: 5%;
     }
 
-    .modal {
+    .modal-V1 {
         position: fixed;
         top: 0;
         left: 0;
@@ -233,7 +233,7 @@
         align-items: center;
     }
 
-    .modal-content {
+    .modal-content-V1 {
         background-color: gray;
         color: white;
         padding: 20px;
@@ -242,7 +242,7 @@
         width: 50%;
     }
 
-    .modal_boton{
+    .modal_boton-V1{
         background-color: green;
         color: white;
     }

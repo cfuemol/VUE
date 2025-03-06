@@ -122,18 +122,15 @@
 
   .landing-container {
     position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   background-color: rgb(47, 87, 133); /* Azul */
   color: #ffffff; /* Blanco */
   text-align: center;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  height:100%;
-  
-
+  min-width: 100%;
+  min-height:100%;
   }
   
   .grid-container {
