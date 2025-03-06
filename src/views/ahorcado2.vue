@@ -44,11 +44,11 @@
             Tú situación:
           </h2>
         </div>
+        
         <div class="div-dibujo">
-          <p>
-            {{ dibujarMuñeco() }}
-          </p>
+             <p v-html="dibujarMuñeco()"></p>
         </div>
+        
       </div>
     </div>
     <div class="div-botones">
@@ -61,13 +61,27 @@
         </button>
       </div>
     </div>
-    <Modal v-model="ModalShowPerder" title="Perdiste" @on-ok="handleClosePerder">
-      <p>Has perdido, la palabra era: {{ palabraAdivinar }}</p>
-    </Modal>
-    <Modal v-model="ModalShowGanar" title="Has Ganado" @on-ok="handleCloseGanar">
-      <p>Has ganado, descubriste la palabra: {{ palabraAdivinar }}</p>
-    </Modal>
+
+    <div class="modal" v-if="mostrarModalPerdiste === true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Perdiste</h5>
+        </div>
+        <div class="modal-body">
+          <p>La palabra era: {{ palabraAdivinar }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="cerrarModalPerdiste">Cerrar</button>
+          <button type="button" class="btn btn-primary" @click="iniciarNuevoJuego">Jugar de nuevo</button>
+        </div>
+      </div>
+    </div>
   </div>
+    
+      
+    </div>
+    
 </template>
 
 <script>
@@ -80,9 +94,10 @@ import esqueleto5 from '@/assets/imagenes_proyecto/esqueleto_1pierna.png';
 import esqueleto6 from '@/assets/imagenes_proyecto/esqueleto_completo.png';
 import calavera from '@/assets/imagenes_proyecto/calavera_cruz.png';
 
+
 export default {
   name: 'Ahorcado2',
-  components: { CustomNavbar },
+  components: { CustomNavbar},
   data() {
     return {
       palabraAdivinar: '',
@@ -90,8 +105,8 @@ export default {
       letrasIncorrectas: [],
       intentosIncorrectos: 0,
       estadoJuego: 'jugando',
-      ModalShowPerder: false,
-      ModalShowGanar: false,
+      mostrarModalPerdiste:true,
+      
       max_intentos: 6,
       alfabeto: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
       palabras: ['REACT', 'JAVASCRIPT', 'AHORCADO', 'PROGRAMACION', 'DESARROLLO'],
@@ -115,6 +130,7 @@ export default {
       this.letrasIncorrectas = [];
       this.intentosIncorrectos = 0;
       this.estadoJuego = 'jugando';
+      this.mostrarModalPerdiste = false;
     },
     manejarAdivinanza(letra) {
       if (this.letrasAdivinadas.includes(letra) || this.letrasIncorrectas.includes(letra) || this.estadoJuego !== 'jugando') return;
@@ -129,7 +145,9 @@ export default {
 
         if (nuevosIntentosIncorrectos >= this.max_intentos) {
           this.estadoJuego = 'perdido';
-          this.ModalShowPerder = true;
+          console.log('Intentos incorrectos: ', nuevosIntentosIncorrectos);
+          console.log('Max intentos: ', this.max_intentos);
+          this.mostrarModalPerdiste = true;
         }
       } else {
         if (this.palabraAdivinar.split('').every((letra) => nuevasLetrasAdivinadas.includes(letra))) {
@@ -139,37 +157,32 @@ export default {
       }
     },
     dibujarMuñeco() {
-      switch (this.intentosIncorrectos) {
-        case 0:
-          return null;
-        case 1:
-          return `<img src="${this.esqueleto1}" alt="La cabeza de un esqueleto." width="200" class="esqueleto">`;
-        case 2:
-          return `<img src="${this.esqueleto2}" alt="La cabeza y cuerpo de un esqueleto." width="200" class="esqueleto">`;
-        case 3:
-          return `<img src="${this.esqueleto3}" alt="La cabeza, cuerpo y un brazo de un esqueleto." width="200" class="esqueleto">`;
-        case 4:
-          return `<img src="${this.esqueleto4}" alt="La cabeza, cuerpo y dos brazos de un esqueleto." width="200" class="esqueleto">`;
-        case 5:
-          return `<img src="${this.esqueleto5}" alt="La cabeza, cuerpo, dos brazos y una pierna de un esqueleto." width="200" class="esqueleto">`;
-        case 6:
-          return `<img src="${this.esqueleto6}" alt="La cabeza, cuerpo completo de un esqueleto." width="200" class="esqueleto">`;
-        default:
-          return `<img src="${this.calavera}" alt="Calavera" width="80%" class="calavera">`;
+      const intentosIncorrectos = this.intentosIncorrectos;
+      const imagenes = [
+        this.esqueleto1,
+        this.esqueleto2,
+        this.esqueleto3,
+        this.esqueleto4,
+        this.esqueleto5,
+        this.esqueleto6,
+      ];
+
+      if (intentosIncorrectos >= imagenes.length) {
+        return `<img src="${this.calavera}" alt="Calavera" width="80%" class="calavera">`;
+      }else if (intentosIncorrectos === 0) {
+        return '';
+      }else {
+        return `<img src="${imagenes[intentosIncorrectos-1]}" alt="Esqueleto" width="200" class="esqueleto">`;
       }
     },
-    handleClosePerder() {
-      this.ModalShowPerder = false;
+    cerrarModalPerdiste() {
+      console.log('Cerrando modal...')
+      this.mostrarModalPerdiste = false;
     },
-    handleShowPerder() {
-      this.ModalShowPerder = true;
-    },
-    handleCloseGanar() {
-      this.ModalShowGanar = false;
-    },
-    handleShowGanar() {
-      this.ModalShowGanar = true;
-    },
+    
+    
+    
+    
   },
 };
 </script>
@@ -311,9 +324,13 @@ export default {
     border: solid rgb(255, 255, 255);
     width: 90%;
     height: 80%;
-    margin:10px;
+    margin:10px ;
     border-radius: 10px;
-    margin:auto;
+    
+}
+.div-dibujo p{
+  margin-left:41%;
+  margin-bottom:5%;
 }
 
 .cabecera{
