@@ -62,21 +62,21 @@
       </div>
     </div>
 
-    <div class="modal" v-if="mostrarModalPerdiste === true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Perdiste</h5>
+    <div v-if="showModalPerder" class="modal">
+        <div class="modal-content">
+            <h2>¡Has perdido!</h2>
+            <p>La palabra era: {{ palabra }}</p>
+            <button @click="handleCloseModalPerder"  class="modal_boton">Reiniciar</button>
         </div>
-        <div class="modal-body">
-          <p>La palabra era: {{ palabraAdivinar }}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="cerrarModalPerdiste">Cerrar</button>
-          <button type="button" class="btn btn-primary" @click="iniciarNuevoJuego">Jugar de nuevo</button>
-        </div>
-      </div>
+
     </div>
+
+    <div v-if="showModalGanar" class="modal">
+        <div class="modal-content">
+            <h2>¡Has ganado!</h2>
+            <p>Felicidades, has adivinado la palabra: {{ palabra }}</p>
+            <button @click="handleCloseModalGanar" class="modal_boton">Reiniciar</button>
+        </div>
   </div>
     
       
@@ -130,7 +130,8 @@ export default {
       this.letrasIncorrectas = [];
       this.intentosIncorrectos = 0;
       this.estadoJuego = 'jugando';
-      this.mostrarModalPerdiste = false;
+      this.showModalPerder = false;
+      this.showModalGanar = false;
     },
     manejarAdivinanza(letra) {
       if (this.letrasAdivinadas.includes(letra) || this.letrasIncorrectas.includes(letra) || this.estadoJuego !== 'jugando') return;
@@ -147,7 +148,7 @@ export default {
           this.estadoJuego = 'perdido';
           console.log('Intentos incorrectos: ', nuevosIntentosIncorrectos);
           console.log('Max intentos: ', this.max_intentos);
-          this.mostrarModalPerdiste = true;
+          this.showModalPerder = true;
         }
       } else {
         if (this.palabraAdivinar.split('').every((letra) => nuevasLetrasAdivinadas.includes(letra))) {
@@ -175,15 +176,17 @@ export default {
         return `<img src="${imagenes[intentosIncorrectos-1]}" alt="Esqueleto" width="200" class="esqueleto">`;
       }
     },
-    cerrarModalPerdiste() {
-      console.log('Cerrando modal...')
-      this.mostrarModalPerdiste = false;
-    },
-    
-    
-    
+  handleCloseModalPerder() {
+            this.showModalPerder = false;
+            this.seleccionarPalabraAleatoria();
+        },
+
+  handleCloseModalGanar() {
+            this.showModalGanar = false;
+            this.seleccionarPalabraAleatoria();
     
   },
+},
 };
 </script>
   
