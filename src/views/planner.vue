@@ -75,7 +75,7 @@ export default {
 <style scoped>
 
 .landing-container {
-    position: absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -86,10 +86,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 100%;
-  height:100%;
-  
-
-  }
-
+  height:100%; 
+}
 
 </style>

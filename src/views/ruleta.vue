@@ -6,9 +6,9 @@
       <p>Intentos restantes: {{ intentosRestantes }}</p>
       <div v-html="dibujoAhorcado"></div>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   export default {
     data() {
       return {
@@ -58,5 +58,5 @@
       },
     },
   };
-  </script>
-  
+
+</script>  

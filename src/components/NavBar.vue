@@ -54,7 +54,6 @@ nav ul{
   padding: 0;
   display: flex;
   justify-content: space-between;
-
 }
 
 nav li a{

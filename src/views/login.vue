@@ -54,6 +54,7 @@ export default {
 </script>
 
 <style scoped>
+
 .login-container {
   position: absolute;
   top: 50%;
@@ -66,8 +67,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 100%;
-  height:100%;
-  
+  height:100%;  
 }
 
 .login-container h2 {
@@ -107,17 +107,18 @@ export default {
 }
 
 #login-container{
-    width:50%;
-    margin:auto;
-    margin-top: 5%;
-    text-align: center;
+  width:50%;
+  margin:auto;
+  margin-top: 5%;
+  text-align: center;
 }
+
 /* Agregamos esto para que el body tenga un height del 100% */
 #registrarse{
-    width:50%;
-    text-align: center;
-    margin:auto;
-    margin-top:50px;
+  width:50%;
+  text-align: center;
+  margin:auto;
+  margin-top:50px;
 }
 
 </style>

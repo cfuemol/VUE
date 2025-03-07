@@ -8,12 +8,15 @@
 </template>
 
 <script>
-export default {
-  name: 'Modal',
-};
+
+    export default {
+      name: 'Modal',
+    };
+    
 </script>
 
 <style scoped>
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -42,4 +45,5 @@ export default {
   font-size: 20px;
   cursor: pointer;
 }
+
 </style>

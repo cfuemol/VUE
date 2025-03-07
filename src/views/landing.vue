@@ -115,10 +115,9 @@
       }, 16);
     },
   };
-  </script>
+</script>
   
-  <style scoped>
-   
+<style scoped>   
 
   .landing-container {
     position: absolute;
@@ -154,8 +153,7 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width:20%;
-    opacity: 0.9;
-    
+    opacity: 0.9;    
   }
 
   .card:hover {
@@ -172,39 +170,37 @@
   
   .card-title {
     font-size: 100%;
-    margin: 10px 0;
-    
+    margin: 10px 0;    
   }
   
   .card-description {
     font-size: 1em;
-    margin: 10px 0;
-    
-  }
-  
+    margin: 10px 0;    
+  }  
   
   .card-button:hover {
     background-color: #0056b3;
   }
 
   #div-imagen{
-    height: 50%;
-   
-   
+    height: 50%;   
   }
+
   #div-titulo{
     height: 15%;
   }
+
   #div-descripcion{
     height: 25%;
   }
+
   #div-boton button{
     height: 100%;
     width: 50%;
   }
+
   .grid-container div{
-    text-align: center;
-    
+    text-align: center;    
   }
 
   .juegos {
@@ -212,13 +208,11 @@
   border:5px solid white;
   border-radius: 10px;
   padding:35px;
-  overflow: hidden;
- 
+  overflow: hidden; 
   margin-top:5%;
 }
 
-.juego {
- 
+.juego { 
   position: absolute;
   padding: 10px;
   border: 2px solid;
@@ -232,10 +226,8 @@
   font-weight: bold;
 }
 
-.juego:hover {
- 
-  color: #000; /* Negro */
-  
+.juego:hover { 
+  color: #000; /* Negro */  
 }
 
 .juego1 {
@@ -245,9 +237,11 @@
 .juego1:hover {
   background-color: #ff0000;
 }
+
 .juego2 {
   border-color: #00ff00;
 }
+
 .juego2:hover{
   background-color: #00ff00;
 }
@@ -285,4 +279,5 @@
     transform: translate(0, 0);
   }
 }
-  </style>
+
+</style>

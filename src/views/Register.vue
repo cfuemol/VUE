@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style scoped>
+
 .register-container {
   position: absolute;
   top: 50%;
@@ -109,7 +110,6 @@ p {
   width:50%;
   margin:auto;
   margin-top:5%;
-
 }
 
 </style>
