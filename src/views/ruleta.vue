@@ -210,12 +210,14 @@ export default {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: white;
 }
 
 .pregunta {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: white;
 }
 
 .respuestas {
