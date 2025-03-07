@@ -7,10 +7,15 @@ El objetivo de este proyecto es migrar el proyecto Scrumnext que estaba siendo d
 Para poder utilizar correctamente este proyecto es necesario una serie de requisitos:
 
 •	GitHub Desktop para crear el repositorio y trabajar con él.
+
 •	Docker Desktop para tener una interfaz gráfica para manejar el contenedor.
+
 •	VsCode con la extensión VUE para programar.
+
 •	Postman para probar los endpoints.
-•	NodeJS para poder utilizar código JS en entorno servidor
+
+•	NodeJS para poder utilizar código JS en entorno servidor.
+
 •	Se recomienda utilizar las últimas versiones disponibles para garantizar su estabilidad y funcionalidad.
 
 ## Instalación y Ejecución
