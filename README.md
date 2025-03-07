@@ -15,23 +15,24 @@ Para poder utilizar correctamente este proyecto es necesario una serie de requis
 
 ## Instalación y Ejecución
 
-Clona el repositorio:
+### Clona el repositorio:
 
 git clone https://github.com/tu-usuario/VUE.git
 
 cd VUE
 
-Construye y ejecuta los contenedores de Docker:
+### Construye y ejecuta los contenedores de Docker:
 
 docker-compose up --build
+
 La aplicación será visible en Docker Desktop y podremos arrancarlo, reiniciarlo o pararlo de forma gráfica siempre que lo necesitemos.
 
-Ejecutar el entorno de desarrollo para VUE
+### Ejecutar el entorno de desarrollo para VUE
 
-Para los primeros pasos con VUE es recomendable seguir los pasos descritos en https://vuejs.org/guide/quick-start.html en los que 
-nos mostrará las configuraciones iniciales, dependencias y la forma de arrancarlo.
+Para los primeros pasos con VUE es recomendable seguir los pasos descritos en https://vuejs.org/guide/quick-start.html en los que nos mostrará las configuraciones iniciales, dependencias y la forma de arrancarlo.
 
 Una vez hecho nos dirigiremos a nuestro directorio VUE en consola de comandos en modo administrador (no Powershell) y ejecutaremos el comando 
+
 npm run dev
 
 En la misma consola nos especificará la dirección que nos asigna a nuestro proyecto para ir viendo los cambios que hagamos
@@ -40,6 +41,3 @@ Por ejemplo: http://localhost:5173/
 ## Documentación
 
 En el archivo Documentación API Poker Planner.docx se pueden observar todos los avances realizados y las cosas por implementar.
-
-npm run build
-```
