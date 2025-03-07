@@ -210,7 +210,7 @@
   padding:35px;
   overflow: hidden; 
   margin-top:5%;
-}
+  }
 
 .juego { 
   position: absolute;
@@ -224,43 +224,43 @@
   transform: translateY(-50%);
   font-size: 24px;
   font-weight: bold;
-}
+  }
 
 .juego:hover { 
   color: #000; /* Negro */  
-}
+  }
 
 .juego1 {
   border-color: #ff0000;
-}
+  }
 
 .juego1:hover {
   background-color: #ff0000;
-}
+  }
 
 .juego2 {
   border-color: #00ff00;
-}
+  }
 
 .juego2:hover{
   background-color: #00ff00;
-}
+  }
 
 .juego3 {
   border-color: #0000ff;
-}
+  }
 
 .juego3:hover {
   background-color: #0000ff;
-}
+  }
 
 .juego4 {
   border-color: #ffff00;
-}
+  }
 
 .juego4:hover {
   background-color: #ffff00;
-}
+  }
 
 @keyframes mover {
   0% {
