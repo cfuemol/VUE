@@ -18,6 +18,7 @@ Para poder utilizar correctamente este proyecto es necesario una serie de requis
 Clona el repositorio:
 
 git clone https://github.com/tu-usuario/VUE.git
+
 cd VUE
 
 Construye y ejecuta los contenedores de Docker:
